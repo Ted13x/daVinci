@@ -1,0 +1,62 @@
+http:
+  port: 8080
+admin:
+  port: 9876
+  hostname: localhost
+apiEndpoints:
+  priceService:
+    host: '*'
+    paths: '/price/*'
+  productService:
+    host: '*'
+    paths: '/product/*'
+  userService:
+    host: '*'
+    paths: '/user/*'
+serviceEndpoints:
+  priceService:
+    url: 'http://localhost:3001'
+  productService:
+    url: 'http://localhost:3002'
+  userService:
+    url: 'http://localhost:3003'
+policies:
+  - key-auth
+  - proxy
+keyAuth:
+  keys:
+    - apiKey: 'testKey'
+pipelines:
+  pricePipeline:
+    apiEndpoints:
+      - priceService
+    policies:
+      - key-auth: 
+          - action:
+              apiKeyHeader: 'x-api-key'
+      - proxy:
+          - action:
+              serviceEndpoint: priceService
+              changeOrigin: true
+  productPipeline:
+    apiEndpoints:
+      - productService
+    policies:
+      - key-auth: 
+          - action:
+              apiKeyHeader: 'x-api-key'
+      - proxy:
+          - action:
+              serviceEndpoint: productService
+              changeOrigin: true
+  userPipeline:
+    apiEndpoints:
+      - userService
+    policies:
+      - key-auth: 
+          - action:
+              apiKeyHeader: 'x-api-key'
+      - proxy:
+          - action:
+              serviceEndpoint: userService
+              changeOrigin: true

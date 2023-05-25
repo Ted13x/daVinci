@@ -1,0 +1,5 @@
+db:
+  redis:
+    package: ioredis
+    host: localhost
+    port: 6379
