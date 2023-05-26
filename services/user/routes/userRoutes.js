@@ -1,6 +1,8 @@
 import express from 'express';
 import userController from '../controllers/userController.js';
 
+// console.log(userController)
+
 const router = express.Router();
 
 const authenticate = (req, res, next) => {
@@ -26,7 +28,7 @@ const authenticate = (req, res, next) => {
 // router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUser);
 router.post('/authenticate', authenticate, userController.authenticateUser);
-router.post('/', userController.createUser);
+router.post('/register', userController.registerUser);
 router.put('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
 

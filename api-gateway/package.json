@@ -6,9 +6,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
+    "start": "node server.mjs",
     "test": "jest"
   },
   "dependencies": {
-    "express-gateway": "^0.0.6"
+    "express-gateway": "^1.16.11"
   }
 }

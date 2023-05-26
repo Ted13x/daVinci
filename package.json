@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "start-next": "cd system && npm run dev",
-    "start-api-gateway": "node api-gateway/server.js",
+    "start-next": "cd client && npm run dev",
+    "start-api-gateway": "cd api-gateway && npm start",
     "start-user-service": "node services/user/server.js",
     "start-product-service": "node services/product/server.js",
     "start-price-service": "node services/price/server.js",
@@ -26,14 +26,12 @@
     "babel-jest": "^29.5.0",
     "concurrently": "^8.0.1",
     "esm": "^3.2.25",
+    "jest": "^29.5.0",
     "lerna": "^6.6.2",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.0"
   },
-  "dependencies": {
-    "jest": "^29.5.0"
-  },
   "workspaces": [
-    "packages/*"
+    "services/*"
   ]
 }

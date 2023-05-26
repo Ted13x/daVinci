@@ -8,22 +8,24 @@ const authenticateUser = async (req, res) => {
   
     if (user && validPassword) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.status(200).json({ 
-        message: 'Authenticated successfully', 
-        token: token 
-      });
+      
+      res.cookie('token', token, { httpOnly: true });
+      res.status(200).json({ message: 'Authenticated successfully' });
     } else {
       res.status(401).json({ message: 'Invalid username or password' });
     }
   };
 
+
 const saltRounds = 10;
 
 const registerUser = async (req, res) => {
+  console.log(req.body);
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     const user = new User({
-      username: req.body.username,
+      email: req.body.email,
+      name: req.body.name,
       password: hashedPassword,
     });
     const newUser = await user.save();

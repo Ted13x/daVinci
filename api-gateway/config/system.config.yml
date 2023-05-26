@@ -1,5 +1,95 @@
 db:
   redis:
-    package: ioredis
-    host: localhost
-    port: 6379
+    emulate: true
+http:
+  port: 8000
+admin:
+  port: 9876
+  hostname: localhost
+apiEndpoints:
+  userApi:
+    path: '/api/user/*'
+  productApi:
+    path: '/api/product/*'
+  priceApi:
+    path: '/api/price/*'
+  cartApi:
+    path: '/api/cart/*'
+  orderApi:
+    path: '/api/order/*'
+  statisticApi:
+    path: '/api/statistic/*'
+  themeApi:
+    path: '/api/theme/*'
+serviceEndpoints:
+  userService:
+    url: 'http://localhost:8000'
+  productService:
+    url: 'http://localhost:8001'
+  priceService:
+    url: 'http://localhost:8002'
+  cartService:
+    url: 'http://localhost:8003'
+  orderService:
+    url: 'http://localhost:8004'
+  statisticService:
+    url: 'http://localhost:8005'
+  themeService:
+    url: 'http://localhost:8006'
+pipelines:
+  - name: userPipeline
+    apiEndpoints:
+      - userApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: userService
+            changeOrigin: true
+  - name: cartPipeline
+    apiEndpoints:
+      - cartApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: cartService
+            changeOrigin: true
+  - name: orderPipeline
+    apiEndpoints:
+      - orderApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: orderService
+            changeOrigin: true
+  - name: productPipeline
+    apiEndpoints:
+      - productApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: productService
+            changeOrigin: true
+  - name: pricePipeline
+    apiEndpoints:
+      - priceApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: priceService
+            changeOrigin: true
+  - name: statisticPipeline
+    apiEndpoints:
+      - statisticApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: statisticService
+            changeOrigin: true
+  - name: themePipeline
+    apiEndpoints:
+      - themeApi
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: themeService
+            changeOrigin: true  
