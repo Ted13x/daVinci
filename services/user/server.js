@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -22,8 +23,13 @@ mongoose.connect(url, {
 .then(() => console.log('Database Connected Successfully'))
 .catch(err => console.log(err));
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // TODO: Change to real url in production
+  credentials: true,
+}));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/user', userRoutes);
 

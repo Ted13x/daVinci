@@ -1,34 +1,16 @@
 import express from 'express';
 import userController from '../controllers/userController.js';
 
-// console.log(userController)
-
 const router = express.Router();
 
-const authenticate = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-  
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
-  
-      jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) {
-          return res.sendStatus(403);
-        }
-  
-        req.user = user;
-        next();
-      });
-    } else {
-      res.sendStatus(401);
-    }
-  };
-
-  
-// router.get('/', userController.getAllUsers);
-router.get('/:id', userController.getUser);
-router.post('/authenticate', authenticate, userController.authenticateUser);
+// specific routes
+router.get('/checkAuth', userController.checkAuth);
+router.post('/authenticate', userController.authenticateUser);
 router.post('/register', userController.registerUser);
+router.get('/logout', userController.logoutUser);
+
+// generic routes
+router.get('/:id', userController.getUser);
 router.put('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
 

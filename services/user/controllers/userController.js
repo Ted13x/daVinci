@@ -19,6 +19,23 @@ const authenticateUser = async (req, res) => {
 
 const saltRounds = 10;
 
+const checkAuth = (req, res) => {
+  const token = req.cookies.token;
+  console.log('Generated Token:', token);
+
+  if (!token) {
+      return res.status(401).json({ message: 'Not authenticated' });
+  } 
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      if (err) {
+          return res.status(401).json({ message: 'Token is not valid' });
+      }
+      
+      res.status(200).json({ message: 'Authenticated' });
+  });
+};
+
 const registerUser = async (req, res) => {
   console.log(req.body);
   try {
@@ -60,6 +77,11 @@ const updateUser = async (req, res) => {
     }
 };
 
+const logoutUser = (req, res) => {
+  res.clearCookie('token', { path: '/', domain: 'localhost', httpOnly: true });
+  res.status(200).send({ message: 'Logged out successfully.' });
+};
+
 const deleteUser = async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
@@ -73,10 +95,12 @@ const deleteUser = async (req, res) => {
 };
 
 export default {
+    checkAuth,
     authenticateUser,
     registerUser,
     getUser,
     updateUser,
+    logoutUser,
     deleteUser,
   };
   
