@@ -9,8 +9,8 @@
     Kommunikation: AWS SQS oder AWS EventBridge
     
     CI/CD: GitLab
-    Hosting: Noch zu bestimmen (möglicherweise Vercel, AWS, Google Cloud oder eine andere passende Plattform)
-    Authentifizierung: Noch zu bestimmen (möglicherweise Firebase Authentication oder eine andere passende Lösung)
+    Hosting: ??
+    Authentifizierung: JWT. httpOnlyCookie 
 
 ## Phase 1: Planung und Entwurf
 

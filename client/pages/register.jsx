@@ -6,6 +6,21 @@ function Register() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/user/checkAuth', { withCredentials: true });
+        if (response.status === 200) {
+          router.push('/');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };

@@ -10,12 +10,11 @@
     "start-api-gateway": "cd api-gateway && npm start",
     "start-user-service": "node services/user/server.js",
     "start-product-service": "node services/product/server.js",
-    "start-price-service": "node services/price/server.js",
     "start-cart-service": "node services/cart/server.js",
     "start-order-service": "node services/order/server.js",
     "start-statistic-service": "node services/statistic/server.js",
     "start-theme-service": "node services/theme/server.js",
-    "start": "concurrently npm:start-api-gateway npm:start-user-service npm:start-product-service npm:start-price-service npm:start-cart-service npm:start-order-service npm:start-statistic-service npm:start-theme-service npm:start-next"
+    "start": "concurrently npm:start-api-gateway npm:start-user-service npm:start-product-service npm:start-cart-service npm:start-order-service npm:start-statistic-service npm:start-theme-service npm:start-next"
   },
   "keywords": [],
   "author": "",

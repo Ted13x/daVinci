@@ -1,10 +1,11 @@
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head'
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.scss'
 import axios from 'axios';
 // components
 import Start from '../components/Start.jsx';
 import Product from '../components/Product.jsx';
-import { useState } from 'react';
 
 const logout = async () => {
   try {
@@ -18,6 +19,23 @@ const logout = async () => {
 
 const Home = () => {
   const [selectedMenu, setSelectedMenu] = useState('');
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/user/checkAuth', { withCredentials: true });
+        if (response.status != 200) {
+          router.push('/login');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   const handleClick = (menu) => {
     setSelectedMenu(menu);

@@ -1,0 +1,26 @@
+.mainContainer {
+    overflow-y: scroll;
+    .formContainer {
+        height: 100%;
+        width: 100%;
+        // display: flex;
+        // justify-content: left;
+        // align-items: start;
+        // flex-direction: row;
+        
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+
+            label {
+                margin-top: 1rem;
+            }
+        }
+        
+        button {
+            margin-top: 1rem;
+        }
+    }
+}
