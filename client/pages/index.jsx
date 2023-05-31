@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.scss'
 import axios from 'axios';
 // components
 import Start from '../components/Start.jsx';
-import Product from '../components/Product.jsx';
+import ProductForm from '../components/productForm/ProductForm.jsx'; 
 
 const logout = async () => {
   try {
@@ -48,14 +48,14 @@ const Home = () => {
       Content = <Start />;
       break;
     case 'product':
-      Content = <Product />;
+      Content = <ProductForm />;
       break;
     default:
       Content = <p>Wählen Sie ein Menü auf der linken Seite</p>;
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.mainContainer}>
       <Head>
         <title>Ihr eCommerce Shop</title>
         <meta name="description" content="Willkommen zu unserem eCommerce Shop!" />
@@ -89,7 +89,7 @@ const Home = () => {
       </div>
 
       <footer className={styles.footer}>
-        © 2023 Ihr eCommerce Shop
+        © 2023 Project DaVinci
       </footer>
     </div>
   );
