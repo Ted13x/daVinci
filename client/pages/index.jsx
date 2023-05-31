@@ -68,9 +68,19 @@ const Home = () => {
 
       <div className={styles.main}>
         <nav className={styles.sideNavigation}>
-          <button onClick={() => handleClick('start')}>Start</button>
-          <button onClick={() => handleClick('product')}>Product</button>
-          <button>Statistiken</button>
+          <div className={styles.linkSection}>
+            <button onClick={() => handleClick('start')}>Start</button>
+          </div>
+          <div className={styles.linkSection}>
+            <button onClick={() => handleClick('product')}>Product</button>
+            <button>Sets</button>
+            <button>Catalogs</button>
+          </div>
+          <div className={styles.linkSection}>
+            <button>Orders</button>
+            <button>Stats</button>
+            <button>Overview</button>
+          </div>
         </nav>
 
         <main className={styles.mainContent}>

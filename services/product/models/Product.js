@@ -29,7 +29,74 @@ const PriceSchema = new mongoose.Schema({
   },
 });
 
+const ImageSchema = new mongoose.Schema({
+  url: {
+    type: String,
+    required: true,
+  },
+  size: {
+    type: Number, // size in Bytes
+    required: true,
+  },
+  format: {
+    type: String, 
+    enum: ['jpg', 'png'],
+    required: true,
+  },
+});
+
+const VideoSchema = new mongoose.Schema({
+  url: {
+    type: String,
+    required: true,
+  },
+  size: {
+    type: Number, // size in Bytes
+    required: true,
+  },
+  format: {
+    type: String, 
+    enum: ['mp4'],
+    required: true,
+  },
+});
+
+const MaterialSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  percentage: {
+    type: Number,
+    required: true,
+  },
+}, {_id: false});
+
+const CategorySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  subcategories: [this],
+}, {_id: false});
+
+const CustomPropertySchema = new mongoose.Schema({
+  key: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: mongoose.Schema.Types.Mixed,
+    required: true,
+  },
+}, {_id: false});
+
 const ProductSchema = new mongoose.Schema({
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -38,6 +105,22 @@ const ProductSchema = new mongoose.Schema({
     type: String,
   },
   prices: [PriceSchema],
+  images: [ImageSchema],
+  videos: [VideoSchema],
+  dimensions: {
+    length: Number,
+    width: Number,
+    height: Number,
+  },
+  volume: Number,
+  weight: Number,
+  materials: [MaterialSchema],
+  categories: [CategorySchema],
+  customProperties: [CustomPropertySchema],
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Product = mongoose.model('Product', ProductSchema);

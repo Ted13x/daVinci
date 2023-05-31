@@ -7,7 +7,8 @@
   .header {
     width: 100vw;
     height: 58px;
-    background-color: blue;
+    background-color: white;
+    border-bottom: 1px solid black;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -22,11 +23,18 @@
   .sideNavigation {
     width: 130px;
     height: 100%;
-    background-color: yellow;
+    padding: 10px;
+    background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    border-right: 1px solid black;
+
+    .linkSection {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
   }
   
   .mainContent {

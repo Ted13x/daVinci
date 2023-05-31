@@ -105,3 +105,10 @@ a {
     color-scheme: dark;
   }
 }
+
+
+button {
+  width: 100px;
+  height: 24px;
+  margin-bottom: 8px;
+}

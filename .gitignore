@@ -2,6 +2,7 @@ node_modules/
 .env
 # next.js
 .next
+/.next/
 /client/.next*
 # production
 /build

@@ -26,18 +26,38 @@ export const createProduct = async (req, res) => {
     let productData = req.body;
 
     productData.prices = productData.prices.filter(price => {
-      // Überprüft, ob der Preis und der Preistyp vorhanden sind
+      // check if price type and value are available
       if (!price.priceType || !price.value) {
+        console.error('Price or priceType missing !');
         return false;
       }
       
-      // Überprüft, ob der Preis vom Typ 'b2_i' ist und ob eine userId vorhanden ist
+      // check if price type 'b2_i' exists and if a userId is available
       if (price.priceType === 'b2_i' && !price.userId) {
+        console.error('b2_i price without userId !');
         return false;
       }
 
       return true;
     });
+
+    if (productData.images) {
+      productData.images = productData.images.filter(image => {
+        return image.url && image.size && image.format;
+      });
+    }
+
+    if (productData.videos) {
+      productData.videos = productData.videos.filter(video => {
+        return video.url && video.size && video.format;
+      });
+    }
+
+    if (productData.materials) {
+      productData.materials = productData.materials.filter(material => {
+        return material.name && material.percentage;
+      });
+    }
 
     const product = new Product(productData);
     const savedProduct = await product.save();
@@ -54,8 +74,6 @@ export const createProduct = async (req, res) => {
     });
   }
 };
-
-
 
 const updateProduct = async (req, res) => {
   try {
