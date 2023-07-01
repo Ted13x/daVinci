@@ -1,4 +1,5 @@
 import Product from '../models/Product.js'; 
+import Category from '../../category/models/Category.js'; 
 
 const getAllProducts = async (req, res) => {
   try {
@@ -25,13 +26,13 @@ export const createProduct = async (req, res, next) => {
   try {
     let category;
     if (req.body.newCategory) {
-      category = await CategoryService.createCategory(req.body.newCategory);
+      category = await Category.createCategory(req.body.newCategory);
     } else if (req.body.newSubcategory) {
-      category = await CategoryService.createSubcategory(req.body.newSubcategory);
+      category = await Category.createSubcategory(req.body.newSubcategory);
     } else if (req.body.newSubSubcategory) {
-      category = await CategoryService.createSubSubcategory(req.body.newSubSubcategory);
+      category = await Category.createSubSubcategory(req.body.newSubSubcategory);
     } else {
-      category = await CategoryService.getCategory(req.body.categoryId);
+      category = await Category.getCategory(req.body.categoryId);
     }
     if (!category) throw new Error('Category could not be found or created');
 

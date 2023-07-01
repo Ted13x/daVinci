@@ -61,6 +61,8 @@ const ProductForm = () => {
     createSubSubcategory,
   } = useProductHandlers(productProperties);
 
+  console.log(useProductHandlers(productProperties))
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {

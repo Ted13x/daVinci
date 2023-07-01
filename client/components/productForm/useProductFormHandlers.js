@@ -201,6 +201,7 @@ const useProductHandlers = (initialState) => {
     createSubSubcategory,
     createProduct,
     lastAssignedCategory,
+    handleAddCategoriesToDatabase
   };
 };
 
