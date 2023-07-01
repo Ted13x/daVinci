@@ -1,5 +1,6 @@
 import Product from '../models/Product.js'; 
-import Category from '../../category/models/Category.js'; 
+import { createCategory, createSubCategory, createSubSubCategory } from '../../category/controller/categoryController.js';
+import { Category, SubCategory, SubSubCategory } from '../../category/models/Category.js';
 
 const getAllProducts = async (req, res) => {
   try {
@@ -23,18 +24,21 @@ const getProduct = async (req, res) => {
 };
 
 export const createProduct = async (req, res, next) => {
+  
   try {
-    let category;
+    let createdCategory, createdSubCategory, createdSubSubCategory;
+
     if (req.body.newCategory) {
-      category = await Category.createCategory(req.body.newCategory);
+      createCategory(req.body.newCategory);
     } else if (req.body.newSubcategory) {
-      category = await Category.createSubcategory(req.body.newSubcategory);
+      createSubCategory(req.body.newSubcategory, req.body.categoryId);
     } else if (req.body.newSubSubcategory) {
-      category = await Category.createSubSubcategory(req.body.newSubSubcategory);
+      createSubSubCategory(req.body.newSubSubcategory, req.body.categoryId)
     } else {
-      category = await Category.getCategory(req.body.categoryId);
+      // category = await Category.getCategory(req.body.categoryId);
+      console.log('No new category, subcategory or subsubcategory was created')
     }
-    if (!category) throw new Error('Category could not be found or created');
+    // if (!category) throw new Error('Category could not be found or created');
 
     let newProduct = new Product({
       ...req.body,

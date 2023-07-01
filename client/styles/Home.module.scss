@@ -19,6 +19,9 @@
   align-items: center;
   padding-right: 20px;
   z-index: 1; // Ensure the header is on top of other content
+  p {
+    margin-right: 20px;
+  }
 
 }
 

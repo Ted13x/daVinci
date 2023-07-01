@@ -7,6 +7,7 @@ import axios from 'axios';
 // components
 import Start from '../components/Start.jsx';
 import ProductForm from '../components/productForm/ProductForm.jsx'; 
+import CategoryForm from '@/components/categoryForm/CategoryForm.jsx';
 
 const logout = async () => {
   try {
@@ -20,24 +21,16 @@ const logout = async () => {
 const Home = () => {
   const [selectedMenu, setSelectedMenu] = useState('');
   const [state, dispatch] = useContext(UserContext);
-
+  const { user, userData } = state;
+  console.log('*** DEBUG user:', user);
   const router = useRouter();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await axios.get('/api/proxy/user/checkAuth', { withCredentials: true });
-        if (response.status != 200) {
-          router.push('/login');
-        } else {
-          dispatch({ type: 'SET_USER', payload: response.data.user });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    checkAuth();
+    if (!user) {
+      router.push('/login');
+    } else {
+     console.log('User is logged in')
+    }
   }, []);
 
   const handleClick = (menu) => {
@@ -53,6 +46,9 @@ const Home = () => {
     case 'product':
       Content = <ProductForm />;
       break;
+    case 'category':
+        Content = <CategoryForm />;
+        break;
     default:
       Content = <p>Wählen Sie ein Menü auf der linken Seite</p>;
   }
@@ -66,6 +62,7 @@ const Home = () => {
       </Head>
 
       <header className={styles.header}>
+        {userData && <p>Willkommen {userData.firstName}  {' '}</p>}
         <button onClick={logout}>Logout</button>
       </header>
 
@@ -75,9 +72,10 @@ const Home = () => {
             <button onClick={() => handleClick('start')}>Start</button>
           </div>
           <div className={styles.linkSection}>
-            <button onClick={() => handleClick('product')}>Product</button>
+            <button onClick={() => handleClick('product')}>Products</button>
             <button>Sets</button>
             <button>Catalogs</button>
+            <button onClick={() => handleClick('category')}>Categories</button>
           </div>
           <div className={styles.linkSection}>
             <button>Orders</button>

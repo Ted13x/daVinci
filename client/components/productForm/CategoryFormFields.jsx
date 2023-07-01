@@ -50,9 +50,10 @@ const CategoryFormFields = ({
     setNewSubCategory('');
     setNewSubSubCategory('');
   };
+  // if user adds new category
   const handleAddNewCategory = (e) => {
-    if (newCategory === '') {
-        alert("Please insert a category name.");
+    if (newCategory === '' && selectedCategory === '') {
+        alert("Please insert a category name or select an existing one.");
     } else {
     setNewCategory(e.target.value);
     setSelectedCategory('');
@@ -65,10 +66,10 @@ const CategoryFormFields = ({
     setSelectedSubCategory(e.target.value);
     fetchSubSubCategories();
   };
-  // if user add new subcategory
+  // if user adds new subcategory
   const handleAddSubcategory = () => {
-    if (newSubCategory === '') {
-        alert("Please insert a category name.");
+    if (newSubCategory === '' && selectedSubCategory === '') {
+        alert("Please insert a category name or select an existing one.");
     } else {
     createSubCategory(newSubCategory, category._id);
     setSelectedSubCategory(newSubCategory);
@@ -81,16 +82,21 @@ const CategoryFormFields = ({
   const handleSubSubCategoryChange = (e) => {
     setSelectedSubSubCategory(e.target.value);
   };
+  // if user adds new subsubcategory
   const handleAddSubSubCategory = () => {
-    createSubSubcategory(newSubSubCategory, subcategory._id);
-    setSelectedSubSubCategory(newSubSubCategory);
-    setNewSubSubCategory('');
+    if (newSubSubCategory === '' && selectedSubSubCategory === '') {
+        alert("Please insert a category name or select an existing one.");
+        createSubSubcategory(newSubSubCategory, subcategory._id);
+        setSelectedSubSubCategory(newSubSubCategory);
+        setNewSubSubCategory('');
+        console.log(newSubSubCategory);  
+    }
   };
 
   const handleSaveCategories = () => {
     handleAddCategoriesToDatabase({
       category: selectedCategory || newCategory,
-      subcategory: selectedSubCategory || newSubcategory,
+      subcategory: selectedSubCategory || newSubCategory,
       subsubcategory: selectedSubSubCategory || newSubSubCategory,
     });
   };
