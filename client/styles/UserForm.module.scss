@@ -1,0 +1,18 @@
+
+.formContainer {
+    width: 100%;
+    min-height: 100vH;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    form {
+
+        .formItem {
+            width: 360px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

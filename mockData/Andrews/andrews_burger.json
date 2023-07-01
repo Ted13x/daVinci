@@ -1,0 +1,23 @@
+{
+    "count":2,
+    "data":[
+        {
+            "name": "House Burger",
+            "category": "Burger",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 13.50,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Beyond Meat Burger",
+            "category": "Burger",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 13.50,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

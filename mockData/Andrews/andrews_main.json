@@ -1,0 +1,41 @@
+{
+    "count":4,
+    "data":[
+        {
+            "name": "Hühnercurry mit Gemüse & Basmatireis",
+            "category": "Hauptspeise",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 12.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Vegetarisches Curry mit Gemüse & Basmatireis",
+            "category": "Hauptspeise",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 11.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Smoked Chicken Wrap mit Huhn, Salat & Tomaten",
+            "category": "Hauptspeise",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 9.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Veggie Wrap mit Hummus, Falafel, Salat & Tomaten",
+            "category": "Hauptspeise",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 8.90,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

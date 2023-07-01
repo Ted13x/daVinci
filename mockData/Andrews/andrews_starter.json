@@ -1,0 +1,95 @@
+{
+    "count":10,
+    "data":[
+        {
+            "name": "Kleine Olivenschale",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 3.90,
+                "quantity": 1}
+            ]
+        },
+        { 
+            "name": "Portion Nüsse gesalzen",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Olivenschale mit Parmigiano",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 5.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Edamame mit Bio Meersalz - Chili & Cayennepfeffer",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Potatoe Wedges - Kartoffeln vom Bauern - mit Dip",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 5.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Toast mit Schinken & Käse",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.90,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Toast mit Käse",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Sacher Würstel mit Senf, Kren & Gebäck",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.80,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Hummus Platte mit Falafel, Hummus, Gemüse, Oliven & Pita",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 9.40,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Antipasti Teller mit Prosciutto, Parmigiano, Gemüse, Oliven & Pita",
+            "catrgory": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 11.80,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

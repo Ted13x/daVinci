@@ -1,0 +1,95 @@
+{
+    "count":10,
+    "data":[
+        {
+            "name": "Espresso",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 2.90,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Espresso Macchiato",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 3.10,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Espresso Doppio",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.80,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Kleiner Brauner",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 3.10,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Großer Brauner",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 5.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Melange",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Cappuccino",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.40,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Latte Macchiato",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 5.50,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Heiße Schokolade",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.50,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Heiße Schokolade mit Schlagobers",
+            "category": "Kaffee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.80,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

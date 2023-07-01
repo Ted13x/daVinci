@@ -1,0 +1,23 @@
+{
+    "count":2,
+    "data":[
+        {
+            "name": "Brownie mit Sauerkirschen & Schlagobers",
+            "category": "Dessert",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.20,
+                "quantity": 1}
+            ]
+        },
+        { 
+            "name": "Apfelstrudel mit Vanillesauce & Schlagobers",
+            "category": "Dessert",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 5.60,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

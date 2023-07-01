@@ -21,59 +21,40 @@ const getProduct = async (req, res) => {
   }
 };
 
-export const createProduct = async (req, res) => {
+export const createProduct = async (req, res, next) => {
   try {
-    let productData = req.body;
+    let category;
+    if (req.body.newCategory) {
+      category = await CategoryService.createCategory(req.body.newCategory);
+    } else if (req.body.newSubcategory) {
+      category = await CategoryService.createSubcategory(req.body.newSubcategory);
+    } else if (req.body.newSubSubcategory) {
+      category = await CategoryService.createSubSubcategory(req.body.newSubSubcategory);
+    } else {
+      category = await CategoryService.getCategory(req.body.categoryId);
+    }
+    if (!category) throw new Error('Category could not be found or created');
 
-    productData.prices = productData.prices.filter(price => {
-      // check if price type and value are available
-      if (!price.priceType || !price.value) {
-        console.error('Price or priceType missing !');
-        return false;
-      }
-      
-      // check if price type 'b2_i' exists and if a userId is available
-      if (price.priceType === 'b2_i' && !price.userId) {
-        console.error('b2_i price without userId !');
-        return false;
-      }
-
-      return true;
+    let newProduct = new Product({
+      ...req.body,
+      category: category._id  // Set the category ID
     });
 
-    if (productData.images) {
-      productData.images = productData.images.filter(image => {
-        return image.url && image.size && image.format;
-      });
+    let product = await newProduct.save();
+
+    if (!product) {
+      throw new Error('Product could not be saved');
     }
 
-    if (productData.videos) {
-      productData.videos = productData.videos.filter(video => {
-        return video.url && video.size && video.format;
-      });
-    }
-
-    if (productData.materials) {
-      productData.materials = productData.materials.filter(material => {
-        return material.name && material.percentage;
-      });
-    }
-
-    const product = new Product(productData);
-    const savedProduct = await product.save();
-
-    res.json({
+    res.status(201).json({
       success: true,
-      message: "Product created successfully",
-      data: savedProduct
+      data: product
     });
   } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
+
 
 const updateProduct = async (req, res) => {
   try {

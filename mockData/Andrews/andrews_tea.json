@@ -1,0 +1,59 @@
+{
+    "count":6,
+    "data":[
+        {
+            "name": "Schwarztee",
+            "category": "Tee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Pfefferminztee",
+            "category": "Tee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Grüner Tee",
+            "category": "Tee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Kamillentee",
+            "category": "Tee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Früchtetee",
+            "category": "Tee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Kräutertee",
+            "category": "Tee",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 4.20,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

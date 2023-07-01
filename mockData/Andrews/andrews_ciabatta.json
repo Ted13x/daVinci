@@ -1,0 +1,23 @@
+{
+    "count":2,
+    "data":[
+        {
+            "name": "Thuna mit Tomatensauce, Thunfisch, Mozarella, Zwiebel & Oregano",
+            "category": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 7.80,
+                "quantity": 1}
+            ]
+        },
+        { 
+            "name": "Tomate mit Mozarella, Tomatensauce, Kirschtomaten & Basilikum",
+            "category": "Vorspeisen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 7.60,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

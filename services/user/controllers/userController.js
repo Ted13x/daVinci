@@ -9,7 +9,8 @@ const authenticateUser = async (req, res) => {
     if (user && validPassword) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
       
-      res.cookie('token', token, { httpOnly: true });
+      res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true });
+
       res.status(200).json({ message: 'Authenticated successfully' });
     } else {
       res.status(401).json({ message: 'Invalid username or password' });
@@ -24,17 +25,18 @@ const checkAuth = (req, res) => {
   console.log('Generated Token:', token);
 
   if (!token) {
-      return res.status(401).json({ message: 'Not authenticated' });
-  } 
+    return res.status(401).json({ message: 'Not authenticated' });
+  }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-      if (err) {
-          return res.status(401).json({ message: 'Token is not valid' });
-      }
-      
-      res.status(200).json({ message: 'Authenticated' });
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: 'Token is not valid' });
+    }
+
+    res.status(200).json({ message: 'Authenticated', user: decoded });
   });
 };
+
 
 const registerUser = async (req, res) => {
   console.log(req.body);
@@ -42,7 +44,8 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     const user = new User({
       email: req.body.email,
-      name: req.body.name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       password: hashedPassword,
     });
     const newUser = await user.save();

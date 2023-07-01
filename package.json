@@ -10,11 +10,13 @@
     "start-api-gateway": "cd api-gateway && npm start",
     "start-user-service": "node services/user/server.js",
     "start-product-service": "node services/product/server.js",
+    "start-category-service": "node services/category/server.js",
     "start-cart-service": "node services/cart/server.js",
     "start-order-service": "node services/order/server.js",
     "start-statistic-service": "node services/statistic/server.js",
     "start-theme-service": "node services/theme/server.js",
-    "start": "concurrently npm:start-api-gateway npm:start-user-service npm:start-product-service npm:start-cart-service npm:start-order-service npm:start-statistic-service npm:start-theme-service npm:start-next"
+    "start-store-service": "node services/store/server.js",
+    "start": "concurrently npm:start-api-gateway npm:start-user-service npm:start-product-service npm:start-category-service npm:start-cart-service npm:start-order-service npm:start-statistic-service npm:start-theme-service npm:start-store-service npm:start-next"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +33,13 @@
     "ts-jest": "^29.1.0"
   },
   "workspaces": [
-    "services/*"
-  ]
+    "packages/*"
+  ],
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.2",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.2"
+  }
 }

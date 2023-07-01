@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from 'react';
 import axios from "axios";
 import styles from "../../styles/ProductForm.module.scss";
 import useProductHandlers from './useProductFormHandlers';
@@ -7,8 +7,14 @@ import PriceFormFields from './PriceFormFields';
 import ImageFormFields from './ImageFormFields';
 import VideoFormFields from './VideoFormFields';
 import MaterialFormFields from './MaterialFormFields';
+import CategoryFormFields from './CategoryFormFields';
+import { UserContext } from '../../context/UserContext.js';
 
 const ProductForm = () => {
+
+  const [state, dispatch] = useContext(UserContext);
+  const { user } = state;
+  console.log('*** DEBUG ~ file: ProductForm.jsx:16 ~ ProductForm ~ user:', user);
 
   const productProperties = {
     name: "",
@@ -25,12 +31,18 @@ const ProductForm = () => {
     images: [{ url: "", size: "", format: "" }],
     videos: [{ url: "", size: "", type: "" }],
     materials: [{ name: "", percentage: "" }],
+    category: null,
+    subcategory: null,
+    subsubcategory: null,
   }
 
   const {
     product,
-    setProduct,
+    categories,
+    subcategories,
+    subsubcategories,
     handleChange,
+    setProduct,
     handlePriceChange,
     handleAddPrice,
     handleRemovePrice,
@@ -43,22 +55,39 @@ const ProductForm = () => {
     handleMaterialChange,
     handleAddMaterial,
     handleRemoveMaterial,
+    handleAddCategoriesToDatabase,
+    createCategory,
+    createSubcategory,
+    createSubSubcategory,
   } = useProductHandlers(productProperties);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let { prices, ...productWithoutPrices } = product;
-    prices = prices.map((price) => {
-      if (price.priceType !== 'b2_i') {
-        const { userId, ...priceWithoutUserId } = price;
-        return priceWithoutUserId;
-      }
-      return price;
+    if (!user) {
+        alert('User data is not available. Please try again.');
+        return;
+    }
+
+    await handleAddCategoriesToDatabase({
+      category: product.category,
+      subcategory: product.subcategory,
+      subsubcategory: product.subsubcategory,
     });
-    const finalProduct = { ...productWithoutPrices, prices };
+
+    const finalProduct = {
+      ...product,
+      prices: product.prices.map((price) => {
+        if (price.priceType !== 'b2_i') {
+          const { userId, ...priceWithoutUserId } = price;
+          return priceWithoutUserId;
+        }
+        return price;
+      }),
+      createdBy: user.id
+    };
 
     try {
-      await axios.post("http://localhost:8001/api/product/create", finalProduct);
+      await axios.post("/api/proxy/product/create", finalProduct);
       alert("Product created successfully!");
       setProduct(productProperties);
     } catch (error) {
@@ -66,37 +95,62 @@ const ProductForm = () => {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    handleChange({ ...product, category: e.target.value });
+  };
+  
+  const handleSubcategoryChange = (e) => {
+    handleChange({ ...product, subcategory: e.target.value });
+  };
+  
+  const handleSubSubcategoryChange = (e) => {
+    handleChange({ ...product, subsubcategory: e.target.value });
+  };
+  
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.formContainer}> 
         <form onSubmit={handleSubmit}>
+        <p>************* BASE ****************</p>
           <BaseFormFields product={product} handleChange={handleChange} />
-
+          <p>************* PRICES ****************</p>
           <PriceFormFields 
             prices={product.prices}
             handlePriceChange={handlePriceChange}
             handleAddPrice={handleAddPrice}
             handleRemovePrice={handleRemovePrice}
           />
-
+          <p>************* IMAGES ****************</p>
           <ImageFormFields 
             images={product.images} 
-            handleImageChange={handleImageChange} 
+            handleImageChange={handleImageChange}
+            handleAddImage={handleAddImage}
             handleRemoveImage={handleRemoveImage}
           />
-
+          <p>************* CATEGORIES ****************</p>
+          <CategoryFormFields
+            product={product}
+            handleCategoryChange={handleCategoryChange}
+            handleSubcategoryChange={handleSubcategoryChange}
+            handleSubSubcategoryChange={handleSubSubcategoryChange}
+            createCategory={createCategory}
+            createSubcategory={createSubcategory}
+            createSubSubcategory={createSubSubcategory}
+          />
+          <p>************* VIDEOS ****************</p>
           <VideoFormFields
             videos={product.videos}
             handleVideoChange={handleVideoChange}
             handleRemoveVideo={handleRemoveVideo}
           />
-
+          <p>************* MATERIALS ****************</p>
           <MaterialFormFields
             materials={product.materials}
             handleMaterialChange={handleMaterialChange}
             handleRemoveMaterial={handleRemoveMaterial}
           />
-
+          <p>************* END ****************</p>
           <button type="submit">Create Product</button>
         </form>
       </div>

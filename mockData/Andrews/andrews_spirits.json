@@ -1,0 +1,158 @@
+{
+    "count":17,
+    "data":[
+        {
+            "name": "Schnäpse: Marille oder Williamsbirne",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Grappa Nonino",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 7.00,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Averna Siciliano",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Absolut Vodka",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Grey Goose Vodka",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 8.40,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Bombay Dry Gin",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Monkey 47 Dry Gin",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 8.40,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Havana Ron de Cuba",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 6.80,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Bumbu Ron de Barbados",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 8.40,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Jack Daniels Tennessee Whiskey",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 7.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Glenfiddich 12y Single Malt Scotch",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 8.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Jameson / Irish Whiskey",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 7.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Jameson Black Barrel / Irish Whiskey",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 9.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Bulleit Bourbon Whiskey",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 7.20,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Tequila Patron Anejo",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 9.60,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Tequila Patron Silver",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 8.40,
+                "quantity": 1}
+            ]
+        },
+        {
+            "name": "Martini Dry, Rosso oder Bianco",
+            "category": "Spirituosen",
+            "prices": [
+                {"priceType": "b2c_g",
+                "value": 5.80,
+                "quantity": 1}
+            ]
+        }
+    ]    
+}

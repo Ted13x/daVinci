@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: `${__dirname}/.env` });
 
 const app = express();
-const port = process.env.PORT || 8002;
+const port = process.env.PORT || 8004;
 const url = process.env.MONGODB_URI;
 
 mongoose.connect(url, {

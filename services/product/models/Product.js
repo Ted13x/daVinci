@@ -72,14 +72,6 @@ const MaterialSchema = new mongoose.Schema({
   },
 }, {_id: false});
 
-const CategorySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  subcategories: [this],
-}, {_id: false});
-
 const CustomPropertySchema = new mongoose.Schema({
   key: {
     type: String,
@@ -115,7 +107,10 @@ const ProductSchema = new mongoose.Schema({
   volume: Number,
   weight: Number,
   materials: [MaterialSchema],
-  categories: [CategorySchema],
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
+},
   customProperties: [CustomPropertySchema],
   updatedAt: {
     type: Date,

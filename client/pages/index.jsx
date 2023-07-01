@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Head from 'next/head'
 import { useRouter } from 'next/router';
+import {UserContext} from '../context/UserContext.js';  
 import styles from '../styles/Home.module.scss'
 import axios from 'axios';
 // components
@@ -9,31 +10,33 @@ import ProductForm from '../components/productForm/ProductForm.jsx';
 
 const logout = async () => {
   try {
-    await axios.get('http://localhost:8000/api/user/logout', { withCredentials: true });
-    // Once the user has logged out, redirect them to the login page
+    await axios.get('/api/proxy/user/logout', { withCredentials: true });
     window.location.href = '/login';
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
-}
+};
 
 const Home = () => {
   const [selectedMenu, setSelectedMenu] = useState('');
+  const [state, dispatch] = useContext(UserContext);
 
   const router = useRouter();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user/checkAuth', { withCredentials: true });
+        const response = await axios.get('/api/proxy/user/checkAuth', { withCredentials: true });
         if (response.status != 200) {
           router.push('/login');
+        } else {
+          dispatch({ type: 'SET_USER', payload: response.data.user });
         }
       } catch (error) {
         console.log(error);
       }
     };
-
+  
     checkAuth();
   }, []);
 

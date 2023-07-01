@@ -1,8 +1,13 @@
 import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -15,7 +20,18 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  //ToDo: Fügen Sie hier weitere Felder hinzu, die Sie benötigen
+  address: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Address',
+  },
+  contactData: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ContactData',
+    },
+  stores: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Store',
+  }],
 });
 
 export default mongoose.model('User', UserSchema);
