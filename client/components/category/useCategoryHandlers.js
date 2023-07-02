@@ -12,6 +12,7 @@ const useCategoryHandlers = (initialState) => {
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const [selectedSubSubCategory, setSelectedSubSubCategory] = useState('');
 
+    const [isCreating, setIsCreating] = useState(false);
     const [newCategory, setNewCategory] = useState('');
     const [newSubCategory, setNewSubCategory] = useState('');
     const [newSubSubCategory, setNewSubSubCategory] = useState('');
@@ -59,8 +60,8 @@ const useCategoryHandlers = (initialState) => {
   // *********** CLICK HANDLERS ***********
   const handleCategoryClick = async (categoryId) => {
     setSelectedCategory(categoryId);
-    setSelectedSubCategory('');
     await getSubCategoriesOfSelectedCategory();
+    setSelectedSubCategory('');
   };
 
   const handleSubCategoryClick = async (subCategoryId) => {
@@ -74,6 +75,7 @@ const useCategoryHandlers = (initialState) => {
     try {
       const response = await axios.post('/api/proxy/category/create', { name: categoryName });
       setNewCategory(response.data.category);
+      setIsCreating(true);
     } catch (err) {
       console.error(err);
     }
@@ -86,6 +88,7 @@ const useCategoryHandlers = (initialState) => {
         } else {
             createCategory(newCategory);
             setNewCategory('');
+            setIsCreating(false);
   };
 };
 
@@ -149,6 +152,7 @@ const handleAddNewSubcategory = () => {
     setSelectedCategory,
     setSelectedSubCategory,
     newCategory,
+    isCreating,
     setNewCategory,
     getCategories,
     getSubCategoriesOfSelectedCategory,

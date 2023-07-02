@@ -17,12 +17,17 @@ const Category = () => {
         selectedSubCategory,
         newCategory,
         setNewCategory,
+        isCreating,
         isLoading,
     } = useCategoryHandlers();  
 
  useEffect(() => {
     getCategories();
     }, []);
+
+useEffect(() => {
+    getCategories();
+}, [isCreating]);
 
   if (isLoading) {
     return <p>Loading...</p>; 

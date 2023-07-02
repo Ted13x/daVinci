@@ -57,9 +57,10 @@ const CategoryList = ({
         null
       )}
 
-      { selectedCategory && selectedCategory.length > 0 && existingSubCategories && existingSubCategories.length > 0 ? (
+      { selectedCategory ? (
+      <p>Sub categories</p>
+          ): selectedCategory.length > 0 && existingSubCategories && existingSubCategories.length > 0 ? (
         <div>
-        <p>Sub categories</p>
         {existingSubCategories.map((subCategory) => (
           <div key={subCategory._id}>
             <li>
