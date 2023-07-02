@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 // TODO: add new category, sub category, sub sub category functionality
 
 const CategoryList = ({ 
   handleCategoryClick,
   handleSubCategoryClick,
+  handleAddNewCategory,
   existingCategories, 
   existingSubCategories,
   existingSubSubCategories,
   selectedCategory,
   selectedSubCategory,
+  newCategory,
+  setNewCategory,
 }) => {
+
+  const [newCategoryState, setNewCategoryState] = useState(false);
+
+  const handleNewAddCategoryClick = () => {
+    console.log('clicked add category');
+    setNewCategoryState(true);
+  }
 
   return (
     <div>
@@ -30,7 +40,19 @@ const CategoryList = ({
       }
       <br/>
       { !selectedCategory && selectedCategory.length === 0 ? (
-        <button onClick={() => handleCategoryClick('newCategory')}>+ main</button>
+        <div>
+          {newCategoryState ? (
+            <div>
+              <input type="text" placeholder="Enter new category name" 
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+              />
+              <button onClick={() => handleAddNewCategory(newCategory)}>Create</button>
+            </div>
+          ) : (
+          <button onClick={() => handleNewAddCategoryClick()}>+ main</button>
+        )}
+        </div>
       ): (
         null
       )}
@@ -46,12 +68,14 @@ const CategoryList = ({
           </div>
             ))}
           </div>
-            ): (
-              <p>No sub categories found</p>
-      )}
+            ): ( null
+              )}
        <br/>
       { selectedCategory ? (
+        <div> 
+              
         <button onClick={() => handleCategoryClick('newSubCategory')}>+ sub</button>
+        </div>
       ): (
         null
       )}

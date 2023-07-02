@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styles from '../styles/Home.module.scss'
-import CategoryForm from '../components/category/categoryForm/CategoryForm.jsx'; 
 import CategoryList from '@/components/category/categoryList/CategoryList.jsx';
 import useCategoryHandlers from '../components/category/useCategoryHandlers.js';
 
@@ -10,11 +9,14 @@ const Category = () => {
         getCategories,
         handleCategoryClick,
         handleSubCategoryClick,
+        handleAddNewCategory,
         existingCategories,
         existingSubCategories,
         existingSubSubCategories,
         selectedCategory,
         selectedSubCategory,
+        newCategory,
+        setNewCategory,
         isLoading,
     } = useCategoryHandlers();  
 
@@ -31,15 +33,15 @@ const Category = () => {
         <CategoryList 
             handleCategoryClick={handleCategoryClick}
             handleSubCategoryClick={handleSubCategoryClick}
+            handleAddNewCategory={handleAddNewCategory}
             selectedCategory={selectedCategory}
             selectedSubCategory={selectedSubCategory}
             existingCategories={existingCategories} 
             existingSubCategories={existingSubCategories}
             existingSubSubCategories={existingSubSubCategories} 
+            newCategory={newCategory}
+            setNewCategory={setNewCategory}
             />
-        {/* <CategoryForm 
-            existingCategories={existingCategories} 
-            setSelectedCategory={setSelectedCategory} /> */}
     </div>
   );
 }

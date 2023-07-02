@@ -72,21 +72,20 @@ const useCategoryHandlers = (initialState) => {
   // *********** ADD NEW CATEGORIES ***********
   const createCategory = async (categoryName) => {
     try {
-      const response = await axios.post('/api/category/create', { name: categoryName });
-      setCategory(response.data.category);
+      const response = await axios.post('/api/proxy/category/create', { name: categoryName });
+      setNewCategory(response.data.category);
     } catch (err) {
       console.error(err);
     }
   };
 
   const handleAddNewCategory = (e) => {
-    if (newCategory === '' && selectedCategory === '') {
-        alert("Please insert a category name or select an existing one.");
-    } else {
-        setSelectedCategory('');
-        setNewCategory(e.target.value);
-        createCategory(newCategory);
-        console.log(newCategory);
+      setSelectedCategory('');
+      if (newCategory === '' && selectedCategory === '') {
+          alert("Please insert a category name or select an existing one.");
+        } else {
+            createCategory(newCategory);
+            setNewCategory('');
   };
 };
 
@@ -141,6 +140,7 @@ const handleAddNewSubcategory = () => {
     // handleChange,
     handleCategoryClick,
     handleSubCategoryClick,
+    handleAddNewCategory,
     existingCategories,
     existingSubCategories,
     existingSubSubCategories,
@@ -148,6 +148,8 @@ const handleAddNewSubcategory = () => {
     selectedSubCategory,
     setSelectedCategory,
     setSelectedSubCategory,
+    newCategory,
+    setNewCategory,
     getCategories,
     getSubCategoriesOfSelectedCategory,
     getSubCategoriesOfSelectedSubCategory,
