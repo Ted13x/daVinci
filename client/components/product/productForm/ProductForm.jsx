@@ -1,14 +1,18 @@
 import React, { useContext } from 'react';
 import axios from "axios";
-import styles from "../../styles/ProductForm.module.scss";
-import useProductHandlers from './useProductFormHandlers';
+import styles from "../../../styles/ProductForm.module.scss";
+import useProductHandlers from '../useProductFormHandlers';
 import BaseFormFields from './BaseFormFields';
 import PriceFormFields from './PriceFormFields';
 import ImageFormFields from './ImageFormFields';
 import VideoFormFields from './VideoFormFields';
 import MaterialFormFields from './MaterialFormFields';
 import CategoryFormFields from './CategoryFormFields';
-import { UserContext } from '../../context/UserContext.js';
+import { UserContext } from '../../../context/UserContext.js';
+
+
+// ToDo: set up product form
+// ToDo: add file uploader
 
 const ProductForm = () => {
 

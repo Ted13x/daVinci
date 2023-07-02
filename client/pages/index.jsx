@@ -6,8 +6,11 @@ import styles from '../styles/Home.module.scss'
 import axios from 'axios';
 // components
 import Start from '../components/Start.jsx';
-import ProductForm from '../components/productForm/ProductForm.jsx'; 
+import ProductForm from '../components/product/productForm/ProductForm.jsx'; 
 import Category from './category.jsx';
+
+// ToDo: update dashboard ui 
+// ToDo: work on renderings
 
 const logout = async () => {
   try {

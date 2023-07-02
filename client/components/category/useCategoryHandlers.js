@@ -16,11 +16,6 @@ const useCategoryHandlers = (initialState) => {
     const [newSubCategory, setNewSubCategory] = useState('');
     const [newSubSubCategory, setNewSubSubCategory] = useState('');
 
-
-  //   const handleChange = (e) => {
-  //     setCategories({ ...categories, [e.target.name]: e.target.value });
-  // };
-
   // *********** GET EXISTING CATEGORIES ***********
   const getCategories = async () => {
     setIsLoading(true);
@@ -70,19 +65,39 @@ const useCategoryHandlers = (initialState) => {
 
   const handleSubCategoryClick = async (subCategoryId) => {
     setSelectedSubCategory(subCategoryId);
+    setSelectedSubSubCategory('');
     await getSubCategoriesOfSelectedSubCategory();
   };
   
   // *********** ADD NEW CATEGORIES ***********
+  const createCategory = async (categoryName) => {
+    try {
+      const response = await axios.post('/api/category/create', { name: categoryName });
+      setCategory(response.data.category);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleAddNewCategory = (e) => {
     if (newCategory === '' && selectedCategory === '') {
         alert("Please insert a category name or select an existing one.");
     } else {
-    setNewCategory(e.target.value);
-    setSelectedCategory('');
-    console.log(newCategory);
+        setSelectedCategory('');
+        setNewCategory(e.target.value);
+        createCategory(newCategory);
+        console.log(newCategory);
   };
 };
+
+const createSubCategory = async (subCategoryName, parentId) => {
+    try {
+      const response = await axios.post('/api/category/sub/create', { name: subCategoryName, parent: parentId });
+      setNewSubCategory(response.data.subCategory);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
 const handleAddNewSubcategory = () => {
     if (newSubCategory === '' && selectedSubCategory === '') {
@@ -92,6 +107,15 @@ const handleAddNewSubcategory = () => {
     setSelectedSubCategory(newSubCategory);
     setNewSubCategory(e.target.value);
     console.log(newSubCategory);
+    }
+  };
+
+  const createSubSubcategory = async (subsubcategoryName, parentId) => {
+    try {
+      const response = await axios.post('/api/category/createSubSubcategory', { name: subsubcategoryName, parent: parentId });
+      setNewSubSubCategory(response.data.subSubCategory);
+    } catch (err) {
+      console.error(err);
     }
   };
 

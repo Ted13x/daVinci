@@ -1,7 +1,5 @@
 import styles  from '../../../styles/CategoryForm.module.scss';
 import CategoryFormFields from './CategoryFormFields.jsx';
-import useCategoryFormHandlers from './useCategoryFormHandlers';
-
 
 const CategoryForm = ({ existingCategories, categories, setSelectedCategory }) => {
 
@@ -21,13 +19,6 @@ const CategoryForm = ({ existingCategories, categories, setSelectedCategory }) =
         parentCategory: "",
         childCategories: [],
     }
-
-    const {
-        category,
-        subCategory,
-        subSubCategory,
-        handleSubmit,
-    } = useCategoryFormHandlers(categoryProperties);  
    
 
     return (
