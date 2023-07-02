@@ -13,6 +13,7 @@ const CategoryList = ({
   selectedSubCategory,
   newCategory,
   setNewCategory,
+  updateCategory,
 }) => {
 
   const [newCategoryState, setNewCategoryState] = useState(false);

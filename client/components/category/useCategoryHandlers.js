@@ -139,6 +139,16 @@ const handleAddNewSubcategory = () => {
     });
   };
 
+  // *********** UPDATE CATEGORIES ***********
+    const updateCategory = async (categoryId, categoryName) => {
+        try {
+            const response = await axios.put(`/api/proxy/category/update/${categoryId}`, { name: categoryName });
+            console.log('Updated category', response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
   return {
     // handleChange,
     handleCategoryClick,
@@ -157,6 +167,7 @@ const handleAddNewSubcategory = () => {
     getCategories,
     getSubCategoriesOfSelectedCategory,
     getSubCategoriesOfSelectedSubCategory,
+    updateCategory,
     isLoading,
   };
 };

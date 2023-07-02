@@ -17,6 +17,7 @@ const Category = () => {
         selectedSubCategory,
         newCategory,
         setNewCategory,
+        updateCategory,
         isCreating,
         isLoading,
     } = useCategoryHandlers();  
@@ -46,6 +47,7 @@ useEffect(() => {
             existingSubSubCategories={existingSubSubCategories} 
             newCategory={newCategory}
             setNewCategory={setNewCategory}
+            updateCategory={updateCategory}
             />
     </div>
   );

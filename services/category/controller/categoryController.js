@@ -1,6 +1,6 @@
 import { Category, SubCategory, SubSubCategory } from '../models/Category.js';
 
-// Controller for creating a new Category
+// Controller for creating a new Categories
 export const createCategory = async (req, res, next) => {
   try {
     let newCategory = new Category({
@@ -129,3 +129,15 @@ export const getSubSubCategoriesOfSubCategory = async (req, res) => {
         res.status(500).json({ error: 'Error in fetching sub sub categories of sub category',  message: error.message });
     }
 };
+
+// Controller for updating a Category
+export const updateCategory = async (req, res) => {
+ try {
+    const category = await Category.findById(req.params.id);
+    category.name = req.body.name;
+    await category.save();
+    res.status(200).json(category);
+ } catch (error) {
+    res.status(500).json({ error: 'Error in updating category',  message: error.message });   
+ } 
+}

@@ -7,7 +7,8 @@ import {
     getSubCategories, 
     getSubSubCategories,
     getSubCategoriesOfCategory,
-    getSubSubCategoriesOfSubCategory
+    getSubSubCategoriesOfSubCategory,
+    updateCategory
 } from '../controller/categoryController.js';
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.use((req, res, next) => {
 // Category routes
 router.get('/', getCategories);
 router.post('/create', createCategory);
+router.put('/update/:id', updateCategory);
 
 // SubCategory routes
 router.get('/sub', getSubCategories);
