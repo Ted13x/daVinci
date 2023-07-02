@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from '../../../styles/Home.module.scss'
 
 const SubSubCategories = ({ 
@@ -10,7 +10,26 @@ const SubSubCategories = ({
     setNewSubSubCategory,
     handleAddNewSubSubCategory,
     newSubSubCategory,
+    updateSubSubCategory,
 }) => {
+  const [editingSubSubCategory, setEditingSubSubCategory] = useState(null);
+  const [updatedSubSubCategory, setUpdatedSubSubCategory] = useState('');
+
+  const handleUpdateClick = (subSubCategory) => {
+    setEditingSubSubCategory(subSubCategory._id);
+    setUpdatedSubSubCategory(subSubCategory.name);
+  };
+
+  const handleCancelClick = () => {
+    setEditingSubSubCategory(null);
+    setUpdatedSubSubCategory('');
+  };
+
+  const handleSaveClick = (subSubCategoryId) => {
+    updateSubSubCategory(subSubCategoryId, updatedSubSubCategory);
+    setEditingSubSubCategory(null);
+    setUpdatedSubSubCategory('');
+  };
 
   return (
     <div>
@@ -23,16 +42,33 @@ const SubSubCategories = ({
         {existingSubSubCategories.map((subSubCategory) => (
           <div className={styles.categoryContainer} key={subSubCategory._id}>
             <li>
-              <button  onClick={() => handleSubSubCategoryClick(subSubCategory._id)}>{subSubCategory.name}</button>
+              {editingSubSubCategory === subSubCategory._id ? (
+                <input 
+                  type="text"
+                  value={updatedSubSubCategory}
+                  onChange={(e) => setUpdatedSubSubCategory(e.target.value)}
+                />
+              ) : (
+                <button  onClick={() => handleSubSubCategoryClick(subSubCategory._id)}>{subSubCategory.name}</button>
+              )}
             </li>
-            <button className={styles.ctaBtn}>update</button>
-            <button className={styles.ctaBtn}>remove</button>
+            {editingSubSubCategory === subSubCategory._id ? (
+              <>
+                <button className={styles.ctaBtn} onClick={() => handleSaveClick(subSubCategory._id)}>Save</button>
+                <button className={styles.ctaBtn} onClick={handleCancelClick}>Cancel</button>
+              </>
+            ) : (
+              <>
+                <button className={styles.ctaBtn} onClick={() => handleUpdateClick(subSubCategory)}>Update</button>
+                <button className={styles.ctaBtn}>Remove</button>
+              </>
+            )}
           </div>
             ))}
           </div>
             ): (
                 <div>
-                <p>The selected sub category doesn't hold no child</p>
+                <p>The selected sub category doesn't hold a child</p>
                 <br/>
                 </div>
       )}

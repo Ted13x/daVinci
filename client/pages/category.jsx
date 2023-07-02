@@ -5,6 +5,9 @@ import SubCategories from '@/components/category/categoryList/SubCategories.jsx'
 import SubSubCategories from '@/components/category/categoryList/SubSubCategories.jsx';
 import useCategoryHandlers from '../components/category/useCategoryHandlers.js';
 
+// ToDo: finish remove functionality for sub and subsub categories
+// ToDo: add handler and states to useHandler file
+
 const Category = () => {
 
     const {
@@ -31,7 +34,6 @@ const Category = () => {
         newCategoryState,
         newSubCategoryState,
         newSubSubCategoryState,
-        updateCategory,
         setSelectedCategory,
         isCreatingMain,
         isCreatingSub,
@@ -40,6 +42,18 @@ const Category = () => {
         handleNewSubSubCategory,
         setNewSubSubCategory,
         isCreatingSubSub,
+        updateCategory,
+        updateSubCategory,
+        updateSubSubCategory,
+        isUpdatingCategoryState,
+        setIsUpdatingCategoryState,
+        isUpdatingSubCategoryState,
+        setIsUpdatingSubCategoryState,
+        isUpdatingSubSubCategoryState,
+        setIsUpdatingSubSubCategoryState,
+        removeCategoryWithAllChilds,
+        removeSubCategoryWithSubSubCategories,
+        removeSubSubCategory,
     } = useCategoryHandlers();  
 
  useEffect(() => {
@@ -47,8 +61,9 @@ const Category = () => {
     }, []);
 
 useEffect(() => {
-    getCategories();
-}, [isCreatingMain]);
+    if (isCreatingMain || isUpdatingCategoryState === true) {
+    getCategories();}
+}, [isCreatingMain, isUpdatingCategoryState]);
 
 useEffect(() => {
     getSubCategoriesOfSelectedCategory(selectedCategory);
@@ -72,6 +87,9 @@ useEffect(() => {
                 newCategoryState={newCategoryState}
                 isLoading={isLoading}
                 setSelectedCategory={setSelectedCategory}
+                updateCategory={updateCategory}
+                setIsUpdatingCategoryState={setIsUpdatingCategoryState}
+                removeCategoryWithAllChilds={removeCategoryWithAllChilds}
             />
         </div>
         <line/>
@@ -87,6 +105,8 @@ useEffect(() => {
                 setNewSubCategory={setNewSubCategory}
                 handleAddNewSubCategory={handleAddNewSubCategory}
                 newSubCategory={newSubCategory}
+                updateSubCategory={updateSubCategory}
+                removeSubCategoryWithSubSubCategories={removeSubCategoryWithSubSubCategories}
             />
         </div>
         <div className={styles.componentContainer}>
@@ -99,6 +119,8 @@ useEffect(() => {
                 newSubSubCategory={newSubSubCategory}
                 handleSubSubCategoryClick={handleSubSubCategoryClick}
                 setNewSubSubCategory={setNewSubSubCategory}
+                updateSubSubCategory={updateSubSubCategory}
+                removeSubSubCategory={removeSubSubCategory}
             />
         </div>
     </div>

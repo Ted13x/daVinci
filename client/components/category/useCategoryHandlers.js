@@ -4,14 +4,17 @@ import axios from "axios";
 const useCategoryHandlers = (initialState) => {
     const [isLoading, setIsLoading] = useState(false);
     
+    // fetch category states from database
     const [existingCategories, setExistingCategories] = useState([]);
     const [existingSubCategories, setExistingSubCategories] = useState([]);
     const [existingSubSubCategories, setExistingSubSubCategories] = useState([]);
 
+    // selected category states
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const [selectedSubSubCategory, setSelectedSubSubCategory] = useState('');
 
+    // add new category states
     const [isCreatingMain, setIsCreatingMain] = useState(false);
     const [newCategoryState, setNewCategoryState] = useState(false);
     const [newCategory, setNewCategory] = useState('');
@@ -21,6 +24,11 @@ const useCategoryHandlers = (initialState) => {
     const [newSubCategoryState, setNewSubCategoryState] = useState(false);
     const [newSubSubCategory, setNewSubSubCategory] = useState('');
     const [newSubSubCategoryState, setNewSubSubCategoryState] = useState(false);
+
+    // update category states
+    const [isUpdatingCategoryState, setIsUpdatingCategoryState] = useState(false);
+    const [isUpdatingSubCategoryState, setIsUpdatingSubCategoryState] = useState(false);
+    const [isUpdatingSubSubCategoryState, setIsUpdatingSubSubCategoryState] = useState(false);
 
   // *********** GET EXISTING CATEGORIES ***********
   const getCategories = async () => {
@@ -204,6 +212,56 @@ const handleAddNewSubCategory = () => {
         }
     };
 
+    //  *********** UPDATE SUB CATEGORIES ***********
+    const updateSubCategory = async (subCategoryId, subCategoryName) => {
+        try {
+            const response = await axios.put(`/api/proxy/category/sub/update/${subCategoryId}`, { name: subCategoryName });
+            console.log('Updated sub category', response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    //  *********** UPDATE SUB SUB CATEGORIES ***********
+    const updateSubSubCategory = async (subSubCategoryId, subSubCategoryName) => {
+        try {
+            const response = await axios.put(`/api/proxy/category/sub-sub/update/${subSubCategoryId}`, { name: subSubCategoryName });
+            console.log('Updated sub sub category', response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    // remove category with sub categories and sub sub categories
+    const removeCategoryWithAllChilds = async (categoryId) => {
+        try {
+            const response = await axios.delete(`/api/proxy/category/delete/${categoryId}`);
+            console.log('Deleted category', response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    // remove sub category with sub sub categories
+    const removeSubCategoryWithSubSubCategories = async (subCategoryId) => {
+        try {
+            const response = await axios.delete(`/api/proxy/category/sub/delete/${subCategoryId}`);
+            console.log('Deleted sub category', response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    // remove sub sub category
+    const removeSubSubCategory = async (subSubCategoryId) => {
+        try {
+            const response = await axios.delete(`/api/proxy/category/sub-sub/delete/${subSubCategoryId}`);
+            console.log('Deleted sub sub category', response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
   return {
     // handleChange,
     handleCategoryClick,
@@ -239,6 +297,19 @@ const handleAddNewSubCategory = () => {
     isLoading,
     isCreatingSubSub,
     newSubSubCategory,
+    updateSubCategory,
+    updateSubSubCategory,
+
+    isUpdatingCategoryState,
+    setIsUpdatingCategoryState,
+    isUpdatingSubCategoryState,
+    setIsUpdatingSubCategoryState,
+    isUpdatingSubSubCategoryState,
+    setIsUpdatingSubSubCategoryState,
+
+    removeCategoryWithAllChilds,
+    removeSubCategoryWithSubSubCategories,
+    removeSubSubCategory,
   };
 };
 
