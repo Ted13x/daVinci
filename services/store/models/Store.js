@@ -10,7 +10,7 @@ const StoreSchema = new Schema({
   },
   type: {
     type: String,
-    enum: ['manufacturer', 'supplier', 'retailer', 'service'],
+    enum: ['manufacturer', 'supplier', 'retailer', 'serviceSupplier', 'restaurant', 'other'],
     required: true,
     },
   logo: {

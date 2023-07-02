@@ -7,7 +7,7 @@ import axios from 'axios';
 // components
 import Start from '../components/Start.jsx';
 import ProductForm from '../components/productForm/ProductForm.jsx'; 
-import CategoryForm from '@/components/categoryForm/CategoryForm.jsx';
+import Category from './category.jsx';
 
 const logout = async () => {
   try {
@@ -47,7 +47,7 @@ const Home = () => {
       Content = <ProductForm />;
       break;
     case 'category':
-        Content = <CategoryForm />;
+        Content = <Category />;
         break;
     default:
       Content = <p>Wählen Sie ein Menü auf der linken Seite</p>;
@@ -62,7 +62,7 @@ const Home = () => {
       </Head>
 
       <header className={styles.header}>
-        {userData && <p>Willkommen {userData.firstName}  {' '}</p>}
+        {userData && <p>Willkommen {userData.firstName}</p>}
         <button onClick={logout}>Logout</button>
       </header>
 

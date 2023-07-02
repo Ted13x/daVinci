@@ -38,13 +38,9 @@ function UserContextProvider(props) {
           console.log('DEBUG data.user.id:', response.data.user.id);
 
           if (response.data.user.id) {
-            try {
               const userDataResponse = await axios.get(`api/proxy/user/${response.data.user.id}`);
               dispatch({ type: 'GET_USER', payload: userDataResponse.data });
               console.log('getUser data:', userDataResponse.data);
-            } catch (error) {
-              console.log('getUser error:', error);
-            }
           }
         }
       } catch (error) {

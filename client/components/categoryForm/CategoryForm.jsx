@@ -3,20 +3,23 @@ import CategoryFormFields from './CategoryFormFields.jsx';
 import useCategoryFormHandlers from './useCategoryFormHandlers';
 
 
-const CategoryForm = () => {
+const CategoryForm = ({ categories, isLoading }) => {
 
     const categoryProperties = {
         name: "",
+        childCategories: [],
     }
 
     const subCategoryProperties = {
         name: "",
         parentCategory: "",
+        childCategories: [],
     }
 
     const subSubCategoryProperties = {
         name: "",
         parentCategory: "",
+        childCategories: [],
     }
 
     const {
@@ -32,6 +35,7 @@ const CategoryForm = () => {
         <div className={styles.formContainer}>
         <form onSubmit={handleSubmit}>
           <CategoryFormFields 
+            categories={categories}
             category={category}
             subCategory={subCategory}
             subSubCategory={subSubCategory}

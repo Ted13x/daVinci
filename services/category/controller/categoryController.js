@@ -1,9 +1,7 @@
 import { Category, SubCategory, SubSubCategory } from '../models/Category.js';
 
 // Controller for creating a new Category
-export // categoryController.js
-
-const createCategory = async (req, res, next) => {
+export const createCategory = async (req, res, next) => {
   try {
     let newCategory = new Category({
       name: req.body.name,
@@ -26,11 +24,15 @@ const createCategory = async (req, res, next) => {
 
 export const createSubCategory = async (req, res, next) => {
   try {
-    let newSubcategory = new Category({
+    let newSubcategory = new SubCategory({
       name: req.body.name,
-      parentCategory: req.body.parentCategoryId,
+      parentCategory: req.body.parentCategory,
     });
 
+    const parent = await Category.findById(req.body.parentCategory);
+    parent.childCategories.push(newSubcategory._id);
+
+    await parent.save();
     let subcategory = await newSubcategory.save();
 
     if (!subcategory) {
@@ -48,11 +50,15 @@ export const createSubCategory = async (req, res, next) => {
 
 export const createSubSubCategory = async (req, res, next) => {
   try {
-    let newSubSubcategory = new Category({
+    let newSubSubcategory = new SubSubCategory({
       name: req.body.name,
-      parentCategory: req.body.parentSubcategoryId,
+      parentCategory: req.body.parentSubcategory,
     });
 
+    const parent = await SubCategory.findById(req.body.parentCategory);
+    parent.childCategories.push(newSubSubcategory._id);
+
+    await parent.save();
     let subSubcategory = await newSubSubcategory.save();
 
     if (!subSubcategory) {
@@ -102,11 +108,10 @@ export const getSubSubCategories = async (req, res) => {
 
 // Controller for fetching SubCategories of a specific Category
 export const getSubCategoriesOfCategory = async (req, res) => {
-    const { categoryId } = req.body;
 
     try {
-        const category = await Category.findById(categoryId);
-        const subCategories = await SubCategory.find({ _id: { $in: category.subCategories } });
+        const category = await Category.findById(req.params.id);
+        const subCategories = await SubCategory.find({ _id: { $in: category.childCategories } });
         res.status(200).json(subCategories);
     } catch (error) {
         res.status(500).json({ error: 'Error in fetching sub categories of category',  message: error.message });
@@ -115,11 +120,10 @@ export const getSubCategoriesOfCategory = async (req, res) => {
 
 // Controller for fetching SubSubCategories of a specific SubCategory
 export const getSubSubCategoriesOfSubCategory = async (req, res) => {
-    const { subCategoryId } = req.body;
 
     try {
-        const subCategory = await SubCategory.findById(subCategoryId);
-        const subSubCategories = await SubSubCategory.find({ _id: { $in: subCategory.subSubCategories } });
+        const subCategory = await SubCategory.findById(req.params.id);
+        const subSubCategories = await SubSubCategory.find({ _id: { $in: subCategory.childCategories } });
         res.status(200).json(subSubCategories);
     } catch (error) {
         res.status(500).json({ error: 'Error in fetching sub sub categories of sub category',  message: error.message });

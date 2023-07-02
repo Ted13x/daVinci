@@ -24,13 +24,14 @@ router.post('/create', createCategory);
 
 // SubCategory routes
 router.get('/sub', getSubCategories);
+router.get('/sub/:id', getSubCategoriesOfCategory);
 router.post('/sub/create', createSubCategory);
-router.post('/sub/ofCategory', getSubCategoriesOfCategory); // new route
 
 // SubSubCategory routes
-router.get('/sub/sub', getSubSubCategories);
-router.post('/sub/sub/create', createSubSubCategory);
-router.post('/sub/sub/ofSubCategory', getSubSubCategoriesOfSubCategory); // new route
+router.get('/sub-sub/', getSubSubCategories);
+router.get('/sub-sub/:id', getSubSubCategoriesOfSubCategory);
+router.post('/sub-sub/create', createSubSubCategory);
+
 
 
 export default router;
