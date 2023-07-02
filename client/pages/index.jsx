@@ -11,6 +11,7 @@ import Category from './category.jsx';
 
 // ToDo: update dashboard ui 
 // ToDo: work on renderings
+// ToDo: remove debug logs
 
 const logout = async () => {
   try {

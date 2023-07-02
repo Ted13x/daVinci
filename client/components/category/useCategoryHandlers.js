@@ -6,16 +6,21 @@ const useCategoryHandlers = (initialState) => {
     
     const [existingCategories, setExistingCategories] = useState([]);
     const [existingSubCategories, setExistingSubCategories] = useState([]);
-    const [existingSubSubCategories, setExistingSubSubCategories] = useState(null);
+    const [existingSubSubCategories, setExistingSubSubCategories] = useState([]);
 
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const [selectedSubSubCategory, setSelectedSubSubCategory] = useState('');
 
-    const [isCreating, setIsCreating] = useState(false);
+    const [isCreatingMain, setIsCreatingMain] = useState(false);
+    const [newCategoryState, setNewCategoryState] = useState(false);
     const [newCategory, setNewCategory] = useState('');
+    const [isCreatingSub, setIsCreatingSub] = useState(false);
+    const [isCreatingSubSub, setIsCreatingSubSub] = useState(false);
     const [newSubCategory, setNewSubCategory] = useState('');
+    const [newSubCategoryState, setNewSubCategoryState] = useState(false);
     const [newSubSubCategory, setNewSubSubCategory] = useState('');
+    const [newSubSubCategoryState, setNewSubSubCategoryState] = useState(false);
 
   // *********** GET EXISTING CATEGORIES ***********
   const getCategories = async () => {
@@ -33,10 +38,10 @@ const useCategoryHandlers = (initialState) => {
     setIsLoading(false);
   };
 
-  const getSubCategoriesOfSelectedCategory = async () => {
+  const getSubCategoriesOfSelectedCategory = async (categoryId) => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`/api/proxy/category/sub/${selectedCategory}`);
+      const response = await axios.get(`/api/proxy/category/sub/${categoryId}`);
       setExistingSubCategories(response.data);
       console.log('Returned sub categories', response.data);
     } catch (err) {
@@ -45,10 +50,10 @@ const useCategoryHandlers = (initialState) => {
     setIsLoading(false);
   };
   
-  const getSubCategoriesOfSelectedSubCategory = async () => {
+  const getSubCategoriesOfSelectedSubCategory = async (subCategoryId) => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`/api/proxy/category/sub-sub/${selectedSubCategory}`);
+      const response = await axios.get(`/api/proxy/category/sub-sub/${subCategoryId}`);
       setExistingSubSubCategories(response.data);
       console.log('Returned sub sub categories', response.data);
     } catch (err) {
@@ -60,77 +65,127 @@ const useCategoryHandlers = (initialState) => {
   // *********** CLICK HANDLERS ***********
   const handleCategoryClick = async (categoryId) => {
     setSelectedCategory(categoryId);
-    await getSubCategoriesOfSelectedCategory();
     setSelectedSubCategory('');
+    setSelectedSubSubCategory('');
+    setNewCategoryState(false);
+    await getSubCategoriesOfSelectedCategory(categoryId);
   };
 
   const handleSubCategoryClick = async (subCategoryId) => {
     setSelectedSubCategory(subCategoryId);
     setSelectedSubSubCategory('');
-    await getSubCategoriesOfSelectedSubCategory();
+    setNewSubCategoryState(false);
+    await getSubCategoriesOfSelectedSubCategory(subCategoryId);
+  };
+
+  const handleSubSubCategoryClick = async (subSubCategoryId) => {
+    console.log('DEBUG - clicked sub sub category')
+    setSelectedSubSubCategory(subSubCategoryId);
+    setNewSubSubCategoryState(false);
+    console.log('Selected sub sub category', subSubCategoryId);
   };
   
   // *********** ADD NEW CATEGORIES ***********
   const createCategory = async (categoryName) => {
     try {
       const response = await axios.post('/api/proxy/category/create', { name: categoryName });
-      setNewCategory(response.data.category);
-      setIsCreating(true);
+      if (response.data.category !== undefined) {
+        setNewCategory(response.data.category);
+      } else {
+        setNewCategory('');
+      }
+      setIsCreatingMain(true);
     } catch (err) {
       console.error(err);
     }
   };
 
+  const handleNewCategoryClick = () => {
+    console.log('clicked add category');
+    setSelectedCategory('');
+    setNewCategoryState(true);
+    setSelectedSubCategory('');
+      setSelectedSubSubCategory('');
+      setExistingSubCategories([]);
+      setExistingSubSubCategories([]);
+  };
+
   const handleAddNewCategory = (e) => {
       setSelectedCategory('');
+      
       if (newCategory === '' && selectedCategory === '') {
           alert("Please insert a category name or select an existing one.");
         } else {
             createCategory(newCategory);
             setNewCategory('');
-            setIsCreating(false);
+            setIsCreatingMain(false);
   };
 };
 
+ // *********** ADD NEW SUB CATEGORIES ***********
 const createSubCategory = async (subCategoryName, parentId) => {
     try {
-      const response = await axios.post('/api/category/sub/create', { name: subCategoryName, parent: parentId });
-      setNewSubCategory(response.data.subCategory);
+        const response = await axios.post('/api/proxy/category/sub/create', { name: subCategoryName, parentCategory: parentId });
+        if (response.data.subCategory !== undefined) {
+            setNewSubCategory(response.data.subCategory);
+        } else {
+            setNewSubCategory('');
+        }
+        setIsCreatingSub(true);
     } catch (err) {
-      console.error(err);
+        console.error(err);
     }
+};
+
+const handleNewSubCategoryClick = () => {
+    setNewSubCategoryState(true);
+    setSelectedSubCategory('');
+    setExistingSubSubCategories([]);
   };
 
-const handleAddNewSubcategory = () => {
+const handleAddNewSubCategory = () => {
     if (newSubCategory === '' && selectedSubCategory === '') {
         alert("Please insert a category name or select an existing one.");
     } else {
-    createSubCategory(newSubCategory, category._id);
+    createSubCategory(newSubCategory, selectedCategory);
     setSelectedSubCategory(newSubCategory);
-    setNewSubCategory(e.target.value);
-    console.log(newSubCategory);
+    setNewSubCategory('');
+    setIsCreatingSub(false);
     }
   };
 
-  const createSubSubcategory = async (subsubcategoryName, parentId) => {
+   // *********** ADD NEW SUB SUB CATEGORIES ***********
+  const createSubSubcategory = async (subSubcategoryName, parentId) => {
     try {
-      const response = await axios.post('/api/category/createSubSubcategory', { name: subsubcategoryName, parent: parentId });
+      const response = await axios.post('/api/proxy/category/sub-sub/create', { name: subSubcategoryName, parentCategory: parentId });
+      if (response.data.subCategory !== undefined) {
       setNewSubSubCategory(response.data.subSubCategory);
+    } else {
+        setNewSubSubCategory('');
+    }
+    setIsCreatingSubSub(true);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleAddNewSubSubCategory = () => {
+  const handleNewSubSubCategoryClick = () => {
+    console.log('DEBUG - clicked add sub sub category')
+    setNewSubSubCategoryState(true);
+  };
+
+  const handleNewSubSubCategory = () => {
     if (newSubSubCategory === '' && selectedSubSubCategory === '') {
         alert("Please insert a category name or select an existing one.");
-        createSubSubcategory(newSubSubCategory, subcategory._id);
+    } else {
+        createSubSubcategory(newSubSubCategory, selectedSubCategory);
         setSelectedSubSubCategory(newSubSubCategory);
         setNewSubSubCategory('');
-        console.log(newSubSubCategory);  
+        setIsCreatingSubSub(false); 
     }
   };
 
+  // *********** SAVE CATEGORIES WHILE PRODUCT CREATION ***********
   const handleSaveCategories = () => {
     handleAddCategoriesToDatabase({
       category: selectedCategory || newCategory,
@@ -153,7 +208,12 @@ const handleAddNewSubcategory = () => {
     // handleChange,
     handleCategoryClick,
     handleSubCategoryClick,
+    handleSubSubCategoryClick,
     handleAddNewCategory,
+    handleAddNewSubCategory,
+    handleNewSubCategoryClick,
+    handleNewSubSubCategoryClick,
+    handleNewSubSubCategory,
     existingCategories,
     existingSubCategories,
     existingSubSubCategories,
@@ -162,13 +222,23 @@ const handleAddNewSubcategory = () => {
     setSelectedCategory,
     setSelectedSubCategory,
     newCategory,
-    isCreating,
+    newSubCategory,
+    isCreatingMain,
+    isCreatingSub,
     setNewCategory,
+    handleNewCategoryClick,
+    newCategoryState,
+    newSubCategoryState,
+    newSubSubCategoryState,
+    setNewSubCategory,
+    setNewSubSubCategory,
     getCategories,
     getSubCategoriesOfSelectedCategory,
     getSubCategoriesOfSelectedSubCategory,
     updateCategory,
     isLoading,
+    isCreatingSubSub,
+    newSubSubCategory,
   };
 };
 

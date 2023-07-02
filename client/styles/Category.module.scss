@@ -1,0 +1,14 @@
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow: hidden; // Prevent scrolling on the container 
+    color: black;
+    .componentContainer {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        
+    }
+}

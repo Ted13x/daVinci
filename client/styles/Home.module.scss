@@ -78,3 +78,26 @@
   align-items: center;
   z-index: 1; // Ensure the footer is on top of other content
 }
+
+.buttonSelected {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 3px;
+}
+
+.categoryContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.ctaBtn {
+  background-color: white;
+  color: black;
+  border: none;
+  width: 64px;
+  &:hover {
+    text-decoration: underline; 
+    cursor: pointer;
+  }
+}
