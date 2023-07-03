@@ -3,6 +3,13 @@ import { Category, SubCategory, SubSubCategory } from '../models/Category.js';
 // Controller for creating a new Categories
 export const createCategory = async (req, res, next) => {
   try {
+
+    const existingCategory = await Category.findOne({ name: req.body.name });
+
+    if (existingCategory) {
+      return res.status(400).json({ error: 'A category with this name already exists.' });
+    }
+    
     let newCategory = new Category({
       name: req.body.name,
     });
@@ -24,6 +31,13 @@ export const createCategory = async (req, res, next) => {
 
 export const createSubCategory = async (req, res, next) => {
   try {
+
+    const existingSubCategory = await SubCategory.findOne({ name: req.body.name, parentCategory: req.body.parentCategory });
+
+    if (existingSubCategory) {
+      return res.status(400).json({ error: 'A subcategory with this name already exists under this category.' });
+    }
+
     let newSubcategory = new SubCategory({
       name: req.body.name,
       parentCategory: req.body.parentCategory,
@@ -50,6 +64,13 @@ export const createSubCategory = async (req, res, next) => {
 
 export const createSubSubCategory = async (req, res, next) => {
   try {
+
+    const existingSubSubCategory = await SubSubCategory.findOne({ name: req.body.name, parentCategory: req.body.parentSubcategory });
+
+    if (existingSubSubCategory) {
+      return res.status(400).json({ error: 'A subsubcategory with this name already exists under this subcategory.' });
+    }
+
     let newSubSubcategory = new SubSubCategory({
       name: req.body.name,
       parentCategory: req.body.parentSubcategory,
@@ -224,15 +245,16 @@ export const removeCategoryWithAllChilds = async (req, res) => {
 
 
 // Controller for removing a SubCategory including all SubSubCategories
-export const removeSubCategoryWithSubSubCategories = async (req, res) => {
+export const removeSubCategoryWithAllChilds = async (req, res) => {
   try {
      const subCategory = await SubCategory.findById(req.params.id);
      const subSubCategories = await SubSubCategory.find({ _id: { $in: subCategory.childCategories } });
-     await subCategory.remove();
-     await subSubCategories.remove();
+     await SubCategory.deleteOne({ _id: req.params.id });
+     await SubSubCategory.deleteMany({ _id: { $in: subSubCategories.map(subSubCategory => subSubCategory._id) } });
      res.status(200).json({ message: 'Sub category with sub sub categories removed' });
   } catch (error) {
      res.status(500).json({ error: 'Error in removing sub category with sub sub categories',  message: error.message });   
   } 
 }
+
 

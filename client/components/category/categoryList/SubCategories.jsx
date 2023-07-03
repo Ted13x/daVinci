@@ -12,6 +12,7 @@ const SubCategories = ({
   handleAddNewSubCategory,
   newSubCategory,
   updateSubCategory,
+  removeSubCategoryWithAllChilds,
 }) => {
   const [editingSubCategory, setEditingSubCategory] = useState(null);
   const [updatedSubCategory, setUpdatedSubCategory] = useState('');
@@ -30,6 +31,13 @@ const SubCategories = ({
     updateSubCategory(subCategoryId, updatedSubCategory);
     setEditingSubCategory(null);
     setUpdatedSubCategory('');
+  };
+
+
+  const handleRemoveClick = (subCategoryId) => {
+    if (window.confirm('Are you sure you want to remove this category and all its subcategories?')) {
+        removeSubCategoryWithAllChilds(subCategoryId);
+    }
   };
 
   return (
@@ -64,7 +72,7 @@ const SubCategories = ({
             ) : (
               <>
                 <button className={styles.ctaBtn} onClick={() => handleUpdateClick(subCategory._id, subCategory.name)}>Update</button>
-                <button className={styles.ctaBtn}>Remove</button>
+                <button className={styles.ctaBtn} onClick={() => handleRemoveClick(subCategory._id)}>Remove</button>
               </>
             )}
           </div>
@@ -72,6 +80,7 @@ const SubCategories = ({
           </div>
             ): ( <p>The selected category doesn't hold sub categories</p>
               )}
+        <br/>
       { newSubCategoryState ? (
        <div>
         <input type="text" placeholder="Enter new category name" 

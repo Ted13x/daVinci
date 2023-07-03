@@ -12,7 +12,7 @@ import {
     updateSubCategory,
     updateSubSubCategory,
     removeCategoryWithAllChilds,
-    removeSubCategoryWithSubSubCategories,
+    removeSubCategoryWithAllChilds,
     removeSubSubCategory
 } from '../controller/categoryController.js';
 
@@ -30,19 +30,21 @@ router.post('/create', createCategory);
 router.put('/update/:id', updateCategory);
 router.delete('/delete/:id', removeCategoryWithAllChilds);
 
-// SubCategory routes
-router.get('/sub', getSubCategories);
-router.get('/sub/:id', getSubCategoriesOfCategory);
-router.post('/sub/create', createSubCategory);
-router.put('/sub/update/:id', updateSubCategory);
-router.delete('/sub/delete/:id', removeSubCategoryWithSubSubCategories);
-
 // SubSubCategory routes
-router.get('/sub-sub/', getSubSubCategories);
 router.get('/sub-sub/:id', getSubSubCategoriesOfSubCategory);
+router.get('/sub-sub/', getSubSubCategories);
 router.post('/sub-sub/create', createSubSubCategory);
 router.put('/sub-sub/update/:id', updateSubSubCategory);
 router.delete('/sub-sub/delete/:id', removeSubSubCategory);
+
+// SubCategory routes
+router.get('/sub/:id', getSubCategoriesOfCategory);
+router.get('/sub', getSubCategories);
+router.post('/sub/create', createSubCategory);
+router.put('/sub/update/:id', updateSubCategory);
+router.delete('/sub/delete/:id', removeSubCategoryWithAllChilds);
+
+
 
 
 

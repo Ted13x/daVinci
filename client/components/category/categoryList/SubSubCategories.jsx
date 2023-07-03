@@ -11,6 +11,7 @@ const SubSubCategories = ({
     handleAddNewSubSubCategory,
     newSubSubCategory,
     updateSubSubCategory,
+    removeSubSubCategory,
 }) => {
   const [editingSubSubCategory, setEditingSubSubCategory] = useState(null);
   const [updatedSubSubCategory, setUpdatedSubSubCategory] = useState('');
@@ -29,6 +30,12 @@ const SubSubCategories = ({
     updateSubSubCategory(subSubCategoryId, updatedSubSubCategory);
     setEditingSubSubCategory(null);
     setUpdatedSubSubCategory('');
+  };
+
+  const handleRemoveClick = (subSubCategoryId) => {
+    if (window.confirm('Are you sure you want to remove this category and all its subcategories?')) {
+        removeSubSubCategory(subSubCategoryId);
+    }
   };
 
   return (
@@ -60,7 +67,7 @@ const SubSubCategories = ({
             ) : (
               <>
                 <button className={styles.ctaBtn} onClick={() => handleUpdateClick(subSubCategory)}>Update</button>
-                <button className={styles.ctaBtn}>Remove</button>
+                <button className={styles.ctaBtn} onClick={() => handleRemoveClick(subSubCategory._id)}>Remove</button>
               </>
             )}
           </div>

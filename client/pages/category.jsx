@@ -52,7 +52,7 @@ const Category = () => {
         isUpdatingSubSubCategoryState,
         setIsUpdatingSubSubCategoryState,
         removeCategoryWithAllChilds,
-        removeSubCategoryWithSubSubCategories,
+        removeSubCategoryWithAllChilds,
         removeSubSubCategory,
     } = useCategoryHandlers();  
 
@@ -92,7 +92,7 @@ useEffect(() => {
                 removeCategoryWithAllChilds={removeCategoryWithAllChilds}
             />
         </div>
-        <line/>
+        
         <div className={styles.componentContainer}>
             <SubCategories
                 handleSubCategoryClick={handleSubCategoryClick}
@@ -106,7 +106,7 @@ useEffect(() => {
                 handleAddNewSubCategory={handleAddNewSubCategory}
                 newSubCategory={newSubCategory}
                 updateSubCategory={updateSubCategory}
-                removeSubCategoryWithSubSubCategories={removeSubCategoryWithSubSubCategories}
+                removeSubCategoryWithAllChilds={removeSubCategoryWithAllChilds}
             />
         </div>
         <div className={styles.componentContainer}>

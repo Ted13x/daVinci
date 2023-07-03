@@ -243,7 +243,7 @@ const handleAddNewSubCategory = () => {
     };
 
     // remove sub category with sub sub categories
-    const removeSubCategoryWithSubSubCategories = async (subCategoryId) => {
+    const removeSubCategoryWithAllChilds = async (subCategoryId) => {
         try {
             const response = await axios.delete(`/api/proxy/category/sub/delete/${subCategoryId}`);
             console.log('Deleted sub category', response.data);
@@ -308,7 +308,7 @@ const handleAddNewSubCategory = () => {
     setIsUpdatingSubSubCategoryState,
 
     removeCategoryWithAllChilds,
-    removeSubCategoryWithSubSubCategories,
+    removeSubCategoryWithAllChilds,
     removeSubSubCategory,
   };
 };
