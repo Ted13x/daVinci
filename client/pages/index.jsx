@@ -6,8 +6,8 @@ import styles from '../styles/Home.module.scss'
 import axios from 'axios';
 // components
 import Start from '../components/Start.jsx';
-import ProductForm from '../components/product/productForm/ProductForm.jsx'; 
-import Category from './category.jsx';
+import Product from '@/components/product/Product.jsx'; 
+import Category from '@/components/category/Category.jsx';
 
 // ToDo: update dashboard ui 
 // ToDo: work on renderings
@@ -50,7 +50,7 @@ const Home = () => {
       Content = <Start />;
       break;
     case 'product':
-      Content = <ProductForm />;
+      Content = <Product />;
       break;
     case 'category':
         Content = <Category />;

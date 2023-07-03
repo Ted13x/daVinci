@@ -73,7 +73,7 @@ export const createSubSubCategory = async (req, res, next) => {
 
     let newSubSubcategory = new SubSubCategory({
       name: req.body.name,
-      parentCategory: req.body.parentSubcategory,
+      parentCategory: req.body.parentCategory,
     });
 
     const parent = await SubCategory.findById(req.body.parentCategory);
@@ -212,7 +212,7 @@ export const removeSubCategory = async (req, res) => {
 export const removeSubSubCategory = async (req, res) => {
   try {
      const subSubCategory = await SubSubCategory.findById(req.params.id);
-     await subSubCategory.remove();
+     await subSubCategory.deleteOne();
      res.status(200).json({ message: 'SubSubCategory removed' });
   } catch (error) {
      res.status(500).json({ error: 'Error in removing sub sub category',  message: error.message });   
